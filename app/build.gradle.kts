@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.kapt)
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -49,8 +50,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     // Hilt
-    implementation ("com.google.dagger:hilt-android:2.53.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.53.1")
+    implementation (libs.hilt.android)
+    kapt (libs.hilt.android.compiler)
     // Jetpack Compose
     implementation ("androidx.compose.ui:ui:1.7.8")
     implementation ("androidx.compose.material:material:1.2.0")
