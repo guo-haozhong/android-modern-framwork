@@ -1,9 +1,9 @@
-package com.hz.example.data.network
+package com.hz.testcompose.data.network
 
-import com.hz.example.data.local.User
+import com.hz.testcompose.data.local.Todo
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("users")
-    suspend fun getUsers(): List<User>
+    @GET("todos/1")
+    suspend fun getTodo(): Todo
 }

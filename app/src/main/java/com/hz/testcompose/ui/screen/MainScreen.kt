@@ -16,28 +16,24 @@ import com.hz.testcompose.ui.viewModel.MainViewModel
 
 
 @Composable
-fun MainScreen() {
-    val viewModel: MainViewModel = viewModel()
+fun MainScreen(viewModel: MainViewModel) {
+    val todo by viewModel.todoLiveData.collectAsState(initial = null)
 
-    // 监听ViewModel的状态
     LaunchedEffect(Unit) {
-        viewModel.loadUser()
+        viewModel.fetchTodo()
     }
 
-    val user by remember { viewModel.userState }
+    todo?.let {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if (user != null) {
-            Text(text = "Name: ${user!!.name}")
-            Text(text = "Age: ${user!!.age}")
-        } else {
-            CircularProgressIndicator(modifier = Modifier.size(48.dp))
+        ) {
+            Text(text = "request api result::\n", modifier = Modifier.padding(20.dp,0.dp))
+            Text(text = "id: ${it.id}", modifier = Modifier.padding(20.dp,0.dp))
+            Text(text = "userId: ${it.userId}", modifier = Modifier.padding(20.dp,0.dp))
+            Text(text = "Title: ${it.title}", modifier = Modifier.padding(20.dp,0.dp))
+            Text(text = "Completed: ${if (it.completed) "Yes" else "No"}", modifier = Modifier.padding(20.dp,0.dp))
         }
     }
 }

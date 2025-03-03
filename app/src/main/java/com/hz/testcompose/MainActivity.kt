@@ -4,11 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material.Surface
 import com.hz.testcompose.ui.screen.MainScreen
 import com.hz.testcompose.ui.theme.TestComposeTheme
+import com.hz.testcompose.ui.viewModel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,36 +22,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             TestComposeTheme {
                 Surface {
-                    MainScreen()
+                    MainScreen(viewModel)
                 }
             }
         }
+//        viewModel.fetchTodo()
 
-//        setContent {
-//            TestComposeTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
-//        }
     }
 }
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    TestComposeTheme {
-//        Greeting("Android")
-//    }
-//}
